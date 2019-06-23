@@ -1,4 +1,4 @@
-package com.example.administrator.nbut_wifi;
+package com.example.administrator.nbut_wifi.utils;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

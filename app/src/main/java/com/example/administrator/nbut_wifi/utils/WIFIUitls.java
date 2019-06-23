@@ -1,4 +1,4 @@
-package com.example.administrator.nbut_wifi;
+package com.example.administrator.nbut_wifi.utils;
 
 import android.content.Context;
 import android.net.wifi.ScanResult;

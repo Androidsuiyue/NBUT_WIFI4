@@ -1,7 +1,6 @@
-package com.example.administrator.nbut_wifi;
+package com.example.administrator.nbut_wifi.activities;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -14,7 +13,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import com.example.administrator.nbut_wifi.R;
+import com.example.administrator.nbut_wifi.utils.HttpReqestUtils;
+import com.example.administrator.nbut_wifi.utils.StringUtils;
+import com.example.administrator.nbut_wifi.utils.WIFIUitls;
 import org.json.JSONException;
 
 
@@ -42,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-
         btn_login = findViewById(R.id.btn_login);
         et_password = findViewById(R.id.et_passw);
         et_username= findViewById(R.id.et_username);
@@ -79,26 +80,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
-
-
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            //登录事件
             case R.id.btn_login:
                 final String[] s = {null};
                 username=et_username.getText().toString();
                 password=et_password.getText().toString();
                 SharedPreferences.Editor editor= pref.edit();
-
+                    //保存密码
                     editor.putString("name",username);
                     editor.putString("pass",password);
-
                     editor.commit();
-
-
-
                 new Thread() {
                     @Override
                     public void run() {
@@ -109,23 +105,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 "service=%25E5%25A4%2596%25E7%25BD%2591"+"&" +
                                 "queryString="+ param +"&" +
                                 "operatorPwd=&operatorUserId=&validcode=&passwordEncrypt=false");
-                        try {
-                            System.out.println(s1);
-                            s[0] = StringUtils.getLoginInfo(s1);
-                            System.out.println(s[0]);
+                        System.out.println(s1);
+                        s[0] = StringUtils.getLoginInfo(s1);
+                        System.out.println(s[0]);
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
                     }
                 }.start();
-                Toast.makeText(MainActivity.this, "成功连接", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, s[0], Toast.LENGTH_SHORT).show();
 
                 break;
-
-
-
-
+             //自动登录
+            case R.id.cb_logina:
+                break;
         }
 
     }
